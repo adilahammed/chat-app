@@ -9,6 +9,7 @@ const cors=require("cors")
 
 
 dotenv.config()
+const port= process.env.PORT || 8800
 // router
 const tokencheck=require('./middleware/tokencheck')
 const userRoute=require('./routes/users')
@@ -49,6 +50,10 @@ app.use(helmet())
 app.use(morgan("common"))
 app.use(express.static('public'))
 
+app.get('/',(req,res)=>{
+    res.send("success")   
+})
+
 // route middleware
 app.use('/api/auth/',authRoute)
 app.use('/api/no',tokencheck)
@@ -56,8 +61,8 @@ app.use('/api/no/users',userRoute)
 app.use('/api/no/uploads',uploads)
 
 
-server.listen(8800,()=>{
-    console.log("port 8800 is running");
+server.listen(port,()=>{
+    console.log(`port ${port} is running`);
 })
 
 
